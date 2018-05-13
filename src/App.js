@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 
+const url = 'http://193.191.177.8:10308/ip-rest/rest/';
+
 class App extends Component {
     constructor(props) {
         super(props);
@@ -9,25 +11,27 @@ class App extends Component {
         }
     }
 
+
     componentDidMount() {
         setInterval(() =>
-            fetch('http://193.191.177.8:10308/ip-rest/rest/articles.htm')
+            fetch(url + 'articles.htm')
                 .then(response => response.json())
                 .then(data => {
                     this.setState({
                         articles: data
                     });
-                }), 2000);
+                }), 150);
     }
 
     static send() {
-        document.getElementById("id").value === "" ? App.add() : App.edit();
+        if(document.getElementById("title").value !== "" || document.getElementById("content").value !== "")
+            document.getElementById("id").value === "" ? App.add() : App.edit();
     }
 
     static add() {
         const json = {"title": document.getElementById("title").value, "content": document.getElementById("content").value};
 
-        fetch('http://193.191.177.8:10308/ip-rest/rest/add.htm', {
+        fetch(url + 'add.htm', {
             method: "POST",
             body: JSON.stringify(json),
             headers: {
@@ -44,7 +48,7 @@ class App extends Component {
                         "title": document.getElementById("title").value,
                         "content": document.getElementById("content").value};
 
-        fetch('http://193.191.177.8:10308/ip-rest/rest/edit.htm', {
+        fetch(url + 'edit.htm', {
             method: "put",
             body: JSON.stringify(json),
             headers: {
@@ -58,7 +62,7 @@ class App extends Component {
     }
 
     static get(id){
-        fetch('http://193.191.177.8:10308/ip-rest/rest/getArticle/'+id+'.htm')
+        fetch(url + 'getArticle/'+id+'.htm')
             .then(response => response.json())
             .then(data => {
                 document.getElementById("id").value = data.id;
@@ -68,7 +72,7 @@ class App extends Component {
     }
 
     static remove(id) {
-        fetch('http://193.191.177.8:10308/ip-rest/rest/delete/'+id+'.htm', {
+        fetch(url + 'delete/'+id+'.htm', {
             method: 'DELETE'
         })
     }
@@ -108,6 +112,5 @@ class App extends Component {
         );
     }
 }
-
 
 export default App;

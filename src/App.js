@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 
 const url = 'http://193.191.177.8:10308/ip-rest/rest/';
 
+function test() {}
+
 class App extends Component {
     constructor(props) {
         super(props);

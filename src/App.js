@@ -11,7 +11,6 @@ class App extends Component {
         }
     }
 
-
     componentDidMount() {
         setInterval(() =>
             fetch(url + 'articles.htm')
@@ -20,7 +19,7 @@ class App extends Component {
                     this.setState({
                         articles: data
                     });
-                }), 150);
+                }), 1000);
     }
 
     static send() {
